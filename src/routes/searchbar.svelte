@@ -4,23 +4,22 @@
 	let name = ' ';
 	let titles = [];
 
-	async function searchThroughWikiPedia(params) {
+	async function searchThroughWikiPedia(params: any) {
 		const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=&srlimit=20&srsearch=${params}&origin=*`;
 		const response = await fetch(endpoint);
 		if (!response.ok) {
-			throw error(response.statusText);
+			throw error(1);
 		}
 		const json = await response.json();
 		let result = json.query.search;
 		titles = [];
 		for (let i = 0; i <= 8; i++) {
 			titles.push(result[i].title);
-			console.log(titles);
 		}
 		return result;
 	}
 
-	function onInput(param) {
+	function onInput(param: any) {
 		let res = searchThroughWikiPedia(param);
 	}
 </script>
@@ -39,7 +38,7 @@
 			<div class="searchResults" style="display:block">
 				{#each titles as title}
 				<br>
-					<a href="article.svelte">{title}</a>
+					<a href="https://www.example.com">{title}</a>
 				{/each}
 			</div>
 		{/if}
@@ -55,7 +54,7 @@
 		background: rgb(255, 255, 255);
 		font-size: 17.5px;
 		padding-top: 50px;
-		padding-left: 15px;
+		padding-left: 25px;
 		padding-right: 15px;
 		top: -7%;
 		box-sizing: border-box;
@@ -132,23 +131,39 @@
 	input::-moz-selection {
 		text-decoration: underline;
 	}
-	/*@media only screen and (max-width: 650px) {
+	@media only screen and (max-width: 720px) {
         form {
             position: absolute;
-            width: 300px;
+            width: 380px;
             height: 60px;
             left: 50%;
-            top: 27%;
+            top: 40%;
             padding: 5px;
             transform: translate(-50%, 50%);
             border-radius: 10px;
             border: 4px solid #f4f3ef;
             box-sizing: border-box;
             background: #f4f3ef;
-            transition: 0.03s;
         }
+		.searchResults {
+			font-family: 'Open Sans', sans-serif;
+			position: absolute;
+			background: rgb(255, 255, 255);
+			font-size: 17.5px;
+			padding-top: 50px;
+			padding-left: 25px;
+			padding-right: 15px;
+			top: -7%;
+			box-sizing: border-box;
+			border-top-left-radius: 20px;
+			border-top-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			padding-bottom: 15px;
+			width: 380px;
+			left: -1%;
+		}
     }    
-    */
 	.course {
 		position: fixed;
 		transform: translate(-50%, 50%);
